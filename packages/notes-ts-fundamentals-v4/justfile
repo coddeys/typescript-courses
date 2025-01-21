@@ -1,0 +1,13 @@
+default:
+    just --list --unsorted
+    
+build:
+    yarn build
+
+run:
+    node dist/04-objects-arrays-and-tuples.js
+
+all: build run
+
+watch:
+    watchexec -e .ts just all
