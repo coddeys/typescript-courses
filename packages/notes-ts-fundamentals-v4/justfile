@@ -5,7 +5,7 @@ build:
     yarn build
 
 run:
-    node dist/04-objects-arrays-and-tuples.js
+    node dist/09-type-queries.js
 
 all: build run
 

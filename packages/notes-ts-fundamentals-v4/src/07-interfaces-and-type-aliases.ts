@@ -3,94 +3,87 @@ type Amount = {
   currency: string
   value: number
 }
-/*
-// function printAmount(amt: Amount) {
-//     console.log(amt)
 
-//     const { currency, value } = amt
-//     console.log(`${currency} ${value}`)
-// }
+function printAmount(amt: Amount) {
+  console.log(amt)
 
-// const donation = {
-//     currency: "USD",
-//     value: 30.0,
-//     description: "Donation to food bank",
-// }
+  const { currency, value } = amt
+  console.log(`${currency} ${value}`)
+}
 
-// printAmount(donation) //✔️ Valid
+const donation = {
+  currency: 'USD',
+  value: 30.0,
+  description: 'Donation to food bank',
+}
 
+printAmount(donation) //✔️ Valid
 
 //? Let's look at a familiar example from the last chapter
-/*
-// function flipCoin() {
-//     if (Math.random() > 0.5) return "heads"
-//     return "tails"
-// }
-// const success = ["success", { name: "Mike North", email: "mike@example.com" }] as const
-// const fail = ["error", new Error("Something went wrong!")] as const
 
-// export function maybeGetUserInfo():
-//     | readonly ["error", Error]
-//     | readonly ["success", { name: string; email: string }] {
-//     // implementation is the same in both examples
-//     if (flipCoin() === 'heads') {
-//         return success
-//     } else {
-//         return fail
-//     }
-// }
+function flipCoin() {
+  if (Math.random() > 0.5) return 'heads'
+  return 'tails'
+}
+const success = [
+  'success',
+  { name: 'Mike North', email: 'mike@example.com' },
+] as const
+const fail = ['error', new Error('Something went wrong!')] as const
+
+export function maybeGetUserInfo():
+  | readonly ['error', Error]
+  | readonly ['success', { name: string; email: string }] {
+  // implementation is the same in both examples
+  if (flipCoin() === 'heads') {
+    return success
+  } else {
+    return fail
+  }
+}
 
 //? Let's model the return type as an interface
-/*
-// type UserInfoOutcomeError = readonly ["error", Error]
-// type UserInfoOutcomeSuccess = readonly [
-//     "success",
-//     { readonly name: string; readonly email: string },
-// ]
-// type UserInfoOutcome =
-//     | UserInfoOutcomeError
-//     | UserInfoOutcomeSuccess
 
+type UserInfoOutcomeError = readonly ['error', Error]
+type UserInfoOutcomeSuccess = readonly [
+  'success',
+  { readonly name: string; readonly email: string },
+]
+type UserInfoOutcome = UserInfoOutcomeError | UserInfoOutcomeSuccess
 
 //* Inheritance in type aliases
-/*
-// type SpecialDate = Date & { getDescription(): string }
+type SpecialDate = Date & { getDescription(): string }
 
-// const newYearsEve: SpecialDate
-//     //                    ^?
-//     = Object.assign(
-//         new Date(),
-//         { getDescription: () => "Last day of the year" }
-//     )
+const newYearsEve: SpecialDate =
+  //                    ^?
+  Object.assign(new Date(), {
+    getDescription: () => 'Last day of the year',
+  })
 
-// newYearsEve.getDescription
-// //             ^?
+newYearsEve.getDescription
 
 //* Interfaces
-/*
-// interface Amount2 {
-//     currency: string
-//     value: number
-// }
+interface Amount2 {
+  currency: string
+  value: number
+}
 
-// function printAmount2(amt: Amount2) {
-//     amt
-// }
+function printAmount2(amt: Amount2) {
+  amt
+}
 
 //* Inheritance in interfaces
-/*
-// //? `extends` keyword
-// function consumeFood(arg) { }
+// function consumeFood(arg) {}
 
 // class AnimalThatEats {
-//     eat(food) {
-//         consumeFood(food)
-//     }
+//   eat(food: string) {
+//     consumeFood(food)
+//   }
 // }
 // class Cat extends AnimalThatEats {
-//     meow() {
-//         return "meow"
-//     }
+//   meow() {
+//     return 'meow'
+//   }
 // }
 
 // const c = new Cat()

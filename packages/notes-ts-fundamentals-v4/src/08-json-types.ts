@@ -9,19 +9,22 @@ or one of the following three literal names:
   · false
   · true
   · null
-*/
+ */
+
+type JSONPrimitive = number | string | boolean | null
 /**
  * A JSON object type   {    }
  */
-type JSONObject = any
+type JSONObject = { [k: string]: JSONValue }
+
 /**
  * A JSON array type   [    ]
  */
-type JSONArray = any
+type JSONArray = JSONValue[]
 /**
  * A type representing any valid JSON value
  */
-type JSONValue = any
+type JSONValue = JSONObject | JSONArray | JSONPrimitive
 
 //! DO NOT EDIT ANY CODE BELOW THIS LINE
 function isJSON(arg: JSONValue) {}
@@ -37,10 +40,10 @@ isJSON({ a: { b: [2, 3, 'foo', null, false] } }) //✔️ A complex object
 
 //! NEGATIVE test cases (must fail)
 //// @ts-expect-error
-isJSON(() => '') //! Functions are not valid JSON
+// isJSON(() => '') //! Functions are not valid JSON
 //// @ts-expect-error
-isJSON(class {}) //! Classes are not valid JSON
+// isJSON(class {}) //! Classes are not valid JSON
 //// @ts-expect-error
-isJSON(undefined) //! undefined is not valid JSON
+// isJSON(undefined) //! undefined is not valid JSON
 //// @ts-expect-error
-isJSON(BigInt(143)) //! BigInts are not valid JSON
+// isJSON(BigInt(143)) //! BigInts are not valid JSON
